@@ -14,15 +14,13 @@ import java.util.List;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class MealServlet extends HttpServlet {
+
     private static final Logger log = getLogger(MealServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("redirect to meals");
-//        response.sendRedirect("meals.jsp");
-//        String action = request.getParameter("action");
-        List<MealTo> allMeals = MealsUtil.get();
-        request.setAttribute("allMeals", allMeals);
+        request.setAttribute("mealList", MealsUtil.getWithExceeded(MealsUtil.MEALS));
         request.getRequestDispatcher("/meals.jsp").forward(request, response);
     }
 }
