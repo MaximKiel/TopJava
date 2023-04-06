@@ -82,6 +82,19 @@ public class User extends AbstractNamedEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return enabled == user.enabled && caloriesPerDay == user.caloriesPerDay && email.equals(user.email) && password.equals(user.password) && registered.equals(user.registered) && roles.equals(user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, password, enabled, registered, roles, caloriesPerDay);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
