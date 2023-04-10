@@ -9,6 +9,7 @@ import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -30,9 +31,14 @@ public class MealRestController {
         return MealsUtil.getTos(service.getAll(SecurityUtil.authUserId()), SecurityUtil.authUserCaloriesPerDay());
     }
 
-    public List<MealTo> getAllFiltered(LocalTime startTime, LocalTime endTime) {
+    public List<MealTo> getAllFilteredTime(LocalTime startTime, LocalTime endTime) {
         log.info("getAllFiltered");
         return MealsUtil.getFilteredTos(service.getAll(SecurityUtil.authUserId()), SecurityUtil.authUserCaloriesPerDay(), startTime, endTime);
+    }
+
+    public List<MealTo> getAllFilteredDate(LocalDate startTime, LocalDate endTime) {
+        log.info("getAllFiltered");
+        return MealsUtil.getFilteredTosDate(service.getAll(SecurityUtil.authUserId()), SecurityUtil.authUserCaloriesPerDay(), startTime, endTime);
     }
 
     public void delete(int id) {
