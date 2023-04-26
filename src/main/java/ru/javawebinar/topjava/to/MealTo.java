@@ -45,7 +45,7 @@ public class MealTo {
     public String toString() {
         return "MealTo{" +
                 "id=" + id +
-                ", dateTime=" + dateTime +
+                ", date_time=" + dateTime +
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
                 ", excess=" + excess +

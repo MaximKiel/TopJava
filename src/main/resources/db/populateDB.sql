@@ -12,7 +12,7 @@ INSERT INTO user_role (role, user_id)
 VALUES ('USER', 100000),
        ('ADMIN', 100001);
 
-INSERT INTO meals (user_id, id, dateTime, description, calories)
-VALUES (100000, nextval('global_seq'), '2023-04-18 22:17:00', 'Овсянка на молоке', 100),
-       (100000, nextval('global_seq'), '2023-04-18 22:19:00', 'Картофельное пюре', 400),
-       (100000, nextval('global_seq'), '2023-04-20 22:20:00', 'Куриная котлета', 500);
+INSERT INTO meals (user_id, date_time, description, calories)
+VALUES (100000, '2023-04-18 22:17:00', 'Овсянка на молоке', 100),
+       (100000, '2023-04-18 22:19:00', 'Картофельное пюре', 400),
+       (100000, '2023-04-20 22:20:00', 'Куриная котлета', 500);

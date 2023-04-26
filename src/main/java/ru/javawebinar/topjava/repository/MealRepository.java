@@ -15,9 +15,9 @@ public interface MealRepository {
     // null if meal does not belong to userId
     Meal get(int id, int userId);
 
-    // ORDERED dateTime desc
+    // ORDERED date_time desc
     List<Meal> getAll(int userId);
 
-    // ORDERED dateTime desc
+    // ORDERED date_time desc
     List<Meal> getBetweenHalfOpen(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
 }
