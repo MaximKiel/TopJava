@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
@@ -34,6 +35,9 @@ public class MealServiceTest {
 
     @Autowired
     private MealService service;
+
+    @Autowired
+    private MealRepository repository;
 
     @Test
     public void get() {
@@ -60,7 +64,13 @@ public class MealServiceTest {
     @Test
     public void getBetweenInclusive() {
         List<Meal> meals = service.getBetweenInclusive(START_DATE, END_DATE, USER_ID);
-        assertMatch(meals, meal1, meal2);
+        assertMatch(meals, meal2, meal1);
+    }
+
+    @Test
+    public void getBetweenWithNullDates() {
+        List<Meal> meals = service.getBetweenInclusive(null, null, USER_ID);
+        assertMatch(meals, meal3, meal2, meal1);
     }
 
     @Test
