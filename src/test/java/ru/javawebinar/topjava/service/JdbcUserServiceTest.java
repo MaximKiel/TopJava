@@ -2,6 +2,8 @@ package ru.javawebinar.topjava.service;
 
 import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles("jdbc")
+import static ru.javawebinar.topjava.Profiles.JDBC;
+
+@ActiveProfiles(JDBC)
 public class JdbcUserServiceTest extends AbstractUserServiceTest{
 }
