@@ -18,7 +18,7 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 @Controller
-@RequestMapping(value = "/meal")
+@RequestMapping(value = "/meals")
 public class JspMealController extends AbstractMealController {
 
     protected JspMealController(MealService service) {
@@ -34,35 +34,33 @@ public class JspMealController extends AbstractMealController {
     @GetMapping("/delete")
     public String delete(HttpServletRequest request) {
         super.delete(getId(request));
-        return "redirect:meals";
+        return "redirect:/meals";
     }
 
     @GetMapping("/update")
-    public String editForUpdate(HttpServletRequest request, Model model) {
+    public String update(HttpServletRequest request, Model model) {
         model.addAttribute("meal", super.get(getId(request)));
         return "mealForm";
     }
 
     @GetMapping("/create")
-    public String editForCreate(Model model) {
+    public String create(Model model) {
         model.addAttribute("meal", new Meal(LocalDateTime.now(), "", 1000));
         return "mealForm";
     }
 
-    @PostMapping("/meals")
+    @PostMapping
     public String updateOrCreate(HttpServletRequest request) {
-        String id = request.getParameter("id");
-        Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
-                LocalDateTime.parse(request.getParameter("dateTime")),
+        Meal meal = new Meal(LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
                 Integer.parseInt(request.getParameter("calories")));
 
-        if (meal.isNew()) {
+        if (request.getParameter("id").isEmpty()) {
             super.create(meal);
         } else {
-            super.update(meal);
+            super.update(meal, getId(request));
         }
-        return "redirect:meals";
+        return "redirect:/meals";
 
     }
 

@@ -6,7 +6,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><spring:message code="app.title"/></title>
-<%--    <c:set var="url">${pageContext.request.requestURL}</c:set>--%>
-<%--    <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURL))}${pageContext.request.requestURL}">--%>
+    <base href="${pageContext.request.contextPath}/"/>
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
