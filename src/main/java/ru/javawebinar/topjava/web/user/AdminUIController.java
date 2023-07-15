@@ -2,19 +2,28 @@ package ru.javawebinar.topjava.web.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.UserTo;
-import ru.javawebinar.topjava.util.ValidationUtil;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
+import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminUIController extends AbstractUserController {
+
+    private final ExceptionInfoHandler exceptionInfoHandler;
+    private final HttpServletRequest request;
+
+    public AdminUIController(ExceptionInfoHandler exceptionInfoHandler, HttpServletRequest request) {
+        this.exceptionInfoHandler = exceptionInfoHandler;
+        this.request = request;
+    }
 
     @Override
     @GetMapping
@@ -37,17 +46,18 @@ public class AdminUIController extends AbstractUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> createOrUpdate(@Valid UserTo userTo, BindingResult result) {
+    public void createOrUpdate(@Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             // TODO change to exception handler
-            return ValidationUtil.getErrorResponse(result);
+            exceptionInfoHandler.validationError(request, new NotFoundException(result.toString()));
+//            return ValidationUtil.getErrorResponse(result);
         }
         if (userTo.isNew()) {
             super.create(userTo);
         } else {
             super.update(userTo, userTo.id());
         }
-        return ResponseEntity.ok().build();
+//        return ResponseEntity.ok().build();
     }
 
     @Override
