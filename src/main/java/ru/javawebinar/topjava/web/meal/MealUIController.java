@@ -2,17 +2,11 @@ package ru.javawebinar.topjava.web.meal;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealTo;
-import ru.javawebinar.topjava.util.ValidationUtil;
-import ru.javawebinar.topjava.util.exception.NotFoundException;
-import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,16 +16,8 @@ import java.util.List;
 @RequestMapping(value = "/profile/meals", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MealUIController extends AbstractMealController {
 
-    private final ExceptionInfoHandler exceptionInfoHandler;
-    private final HttpServletRequest request;
-
-    public MealUIController(ExceptionInfoHandler exceptionInfoHandler, HttpServletRequest request) {
-        this.exceptionInfoHandler = exceptionInfoHandler;
-        this.request = request;
+    public MealUIController() {
     }
-
-//    public MealUIController() {
-//    }
 
     @Override
     @GetMapping
@@ -54,12 +40,7 @@ public class MealUIController extends AbstractMealController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@Valid Meal meal, BindingResult result) {
-        if (result.hasErrors()) {
-            // TODO change to exception handler
-//            return ValidationUtil.getErrorResponse(result);
-            exceptionInfoHandler.validationError(request, new NotFoundException(result.toString()));
-        }
+    public void createOrUpdate(@Valid Meal meal) {
         if (meal.isNew()) {
             super.create(meal);
         } else {
