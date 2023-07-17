@@ -46,7 +46,6 @@ public class MealUIController extends AbstractMealController {
         } else {
             super.update(meal, meal.getId());
         }
-//        return ResponseEntity.ok().build();
     }
 
     @Override
