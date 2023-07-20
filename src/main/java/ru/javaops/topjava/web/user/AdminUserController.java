@@ -1,6 +1,6 @@
 package ru.javaops.topjava.web.user;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
